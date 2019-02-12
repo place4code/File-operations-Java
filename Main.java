@@ -13,6 +13,7 @@ public class Main {
 
         //###############################################################
         //################################         Find a file:
+
         boolean fileFound = false;
         while (!fileFound) {
             System.out.println("Enter the path to the file in which you want to save the data: ");
@@ -28,8 +29,10 @@ public class Main {
             }
 
         }
+
         //###############################################################
         //################################         Save to file:
+
         FileWriter fileWriter = new FileWriter(file);
 
         boolean endOfTyping = false;
@@ -47,6 +50,7 @@ public class Main {
 
         //###############################################################
         //################################         Read from a file:
+
         int lineCounter = 0;
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -64,12 +68,25 @@ public class Main {
         System.out.println("Lines in the file: " + lineCounter);
         System.out.println(content);
 
+        //###############################################################
+        //################################         Binary:
+
+        /*
 
 
+        DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(file));
+
+        System.out.println("Your birthday in format: dd-mm-yyyy");
+        String birth = scanner.nextLine().replaceAll("-", "");
+        System.out.println(birth);
+        outputStream.writeInt(Integer.valueOf(birth));
+        outputStream.close();
+
+        DataInputStream inputStream = new DataInputStream(new FileInputStream(file));
+        System.out.println("Content from a file: " + inputStream.readInt());
 
 
-
-
+        */
 
     }
 }
