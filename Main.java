@@ -33,8 +33,8 @@ public class Main {
         //###############################################################
         //################################         Save to file:
 
-        FileWriter fileWriter = new FileWriter(file);
-
+        //FileWriter fileWriter = new FileWriter(file);
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
         boolean endOfTyping = false;
         while (!endOfTyping) {
             System.out.println("Write something: ");
