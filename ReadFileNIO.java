@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ReadFileNIO {
@@ -13,18 +11,8 @@ public class ReadFileNIO {
     public static void main(String[] args) {
 
         int count;
-        Path path = null;
-
-        try {
-                   // path to the file
-            path = Paths.get("test.txt");
-        } catch(InvalidPathException e) {
-            System.out.println("Invalid Path");
-            return;
-        }
-
                                           // channel to the file
-        try(SeekableByteChannel channel = Files.newByteChannel(path)) {
+        try(SeekableByteChannel channel = Files.newByteChannel(Paths.get("test.txt"))) {
 
             //buffer allocation
             ByteBuffer buffer = ByteBuffer.allocate(128);
