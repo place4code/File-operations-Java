@@ -11,8 +11,8 @@ What I used here:
 
 # update: NIO
 
- **Classes:** Path, Files, ByteBuffer
+ **Classes:** Path, Files, ByteBuffer, FileChannel, MappedByteBuffer
  
  **Methods:** allocate, rewind
  
- > First NIO commit
+ > NIO with mapping and buffer
