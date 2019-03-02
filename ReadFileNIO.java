@@ -7,14 +7,58 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class ReadFileNIO {
 
     public static void main(String[] args) {
 
+        //######################################################
+        //write without mapping
+        try (FileChannel channel = (FileChannel)Files.newByteChannel(Paths.get("write.txt"),
+                StandardOpenOption.WRITE,
+                StandardOpenOption.CREATE)){
+
+            //buffer
+            ByteBuffer buffer = ByteBuffer.allocate(26);
+            //put in buffer
+            for (int i = 0; i < 26; i++) {
+                buffer.put((byte)('A' + i)); //65('A') + 0(i)... 65 = A, 66 = B
+            }
+            //position buffer 0
+            buffer.rewind();
+            //write to the file
+            channel.write(buffer);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //######################################################
+        //write with mapping
+        try (FileChannel channel = (FileChannel)Files.newByteChannel(Paths.get("writeMap.txt"),
+                StandardOpenOption.WRITE,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.READ)){
+
+            //mapped buffer
+            MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_WRITE, 0, 26);
+            //put in buffer
+            for (int i = 0; i < 26; i++) {
+                buffer.put((byte)('A' + i)); //65('A') + 0(i)... 65 = A, 66 = B
+            }
+            //position buffer 0
+            buffer.rewind();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //######################################################
+        //read without mapping
         int count;
                                           // channel to the file
-        try(SeekableByteChannel channel = Files.newByteChannel(Paths.get("test.txt"))) {
+        try(SeekableByteChannel channel = Files.newByteChannel(Paths.get("write.txt"))) {
 
             //buffer allocation
             ByteBuffer buffer = ByteBuffer.allocate(128);
@@ -39,8 +83,9 @@ public class ReadFileNIO {
         System.out.println();
         System.out.println();
 
-        //mapping
-        try(FileChannel channel = (FileChannel)Files.newByteChannel(Paths.get("test.txt"))) {
+        //######################################################
+        //read with mapping
+        try(FileChannel channel = (FileChannel)Files.newByteChannel(Paths.get("writeMap.txt"))) {
 
             long fileSize = channel.size();
 
